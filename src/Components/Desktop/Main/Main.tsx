@@ -28,7 +28,7 @@ export default function Main() {
   const { width } = useWindowSize();
   const { socket } = useSocket();
 
-  const rtmChannelRef = useRef<RtmChannel>();
+  const rtmChannelRef = useRef<RtmChannel | undefined>(undefined);
 
   const session = useSession();
   const userId = session.data?.user?.id;
