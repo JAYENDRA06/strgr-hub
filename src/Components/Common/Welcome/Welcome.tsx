@@ -1,12 +1,19 @@
+"use client";
+
 import Link from "next/link";
 import React, { useState } from "react";
 import { BsExclamationTriangle } from "react-icons/bs";
 
 export default function Welcome({ errorMsg, loading, onRequestPermissions }: { errorMsg: string, loading: boolean, onRequestPermissions: any }) {
-    const [policyAccepted, setPolicyAccepted] = useState(localStorage?.getItem("policyAccepted"));
+    const [policyAccepted, setPolicyAccepted] = useState<string | null>(() =>
+        typeof window !== "undefined" ? localStorage.getItem("policyAccepted") : null
+    );
     const acceptPolicy = () => {
-        setPolicyAccepted(prev => prev === "yes" ? "no" : "yes");
-        localStorage?.setItem("policyAccepted", policyAccepted === "yes" ? "no" : "yes");
+        setPolicyAccepted((prev) => {
+            const next = prev === "yes" ? "no" : "yes";
+            localStorage.setItem("policyAccepted", next);
+            return next;
+        });
     }
   return (
     <center>
